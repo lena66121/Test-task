@@ -16,7 +16,7 @@ class MyDocument extends Document {
     return (
       <html>
         <Head>
-          <title>Your site title</title>
+          <title>True Blog</title>
           {this.props.styleTags}
         </Head>
         <body>
