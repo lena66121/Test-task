@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { NextPage } from 'next';
 import { NewPost } from '../../typescript/interfaces'
-import { createNewPost } from '../services/api';
+import { createNewPost } from '../../services/api';
 import styled from 'styled-components';
 
 const CreateNewPost: NextPage = (): JSX.Element => {

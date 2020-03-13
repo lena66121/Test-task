@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { NewPost, Comment, Post } from '../../typescript/interfaces'
+import { NewPost, Comment, Post } from '../typescript/interfaces'
 
 axios.defaults.baseURL = process.env.BASE_API_URL;
 

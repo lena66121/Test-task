@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Router from 'next/router';
 import {NextPageContext, NextPage} from 'next';
-import { getPostInfo, createComment } from '../services/api';
+import { getPostInfo, createComment } from '../../services/api';
 import { Post, NewComment, Comment } from '../../typescript/interfaces';
 import styled from 'styled-components';
 

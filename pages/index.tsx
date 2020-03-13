@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { getLatestPosts } from './services/api';
+import { getLatestPosts } from '../services/api';
 import { getAllPosts } from '../redux/actions';
 import { NextPage} from 'next';
 import PostItem from '../components/PostsItem';
