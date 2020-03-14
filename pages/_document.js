@@ -1,6 +1,7 @@
 import React from 'react';
 import Document, { Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
+import { ServerStyleSheets } from '@material-ui/core/styles';
 
 class MyDocument extends Document {
   static getInitialProps({ renderPage }) {
@@ -18,6 +19,10 @@ class MyDocument extends Document {
         <Head>
           <title>True Blog</title>
           {this.props.styleTags}
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+          />
         </Head>
         <body>
           <Main />
@@ -27,5 +32,26 @@ class MyDocument extends Document {
     );
   }
 }
+
+MyDocument.getInitialProps = async ctx => {
+  const sheets = new ServerStyleSheets();
+  const originalRenderPage = ctx.renderPage;
+
+  ctx.renderPage = () =>
+    originalRenderPage({
+      enhanceApp: App => props => sheets.collect(<App {...props} />),
+    });
+
+  const initialProps = await Document.getInitialProps(ctx);
+
+  return {
+    ...initialProps,
+    // Styles fragment is rendered after the app and page rendering finish.
+    styles: [
+      ...React.Children.toArray(initialProps.styles),
+      sheets.getStyleElement(),
+    ],
+  };
+};
 
 export default MyDocument;

@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Router from 'next/router';
+import { ToastContainer, toast } from 'react-toastify';
 import {NextPageContext, NextPage} from 'next';
 import { getPostInfo, createComment } from '../../services/api';
 import { Post, NewComment, Comment } from '../../typescript/interfaces';
 import styled from 'styled-components';
-
-
+import CustomButton from '../../shared-ui/CustomButton'
 
 const PostInfo: NextPage = (props: any): JSX.Element => {
 
@@ -18,7 +18,8 @@ const PostInfo: NextPage = (props: any): JSX.Element => {
     e.preventDefault();
 
     if (comment === '') {
-      alert('The field cannot  be empty');
+    toast.error('The field cannot  be empty');
+      
       setComment('');
       return;
     }
@@ -30,6 +31,7 @@ const PostInfo: NextPage = (props: any): JSX.Element => {
 
     setComment('');
     createComment(credentials);
+    Router.push(`/posts/${id}`)
   };
 
   
@@ -53,13 +55,12 @@ const PostInfo: NextPage = (props: any): JSX.Element => {
           name="comment"
           onChange={e => setComment(e.target.value)}
         />
-        <Button type="submit" onClick={(): Promise<boolean> => Router.push(`/posts/${id}`)}>
-          Submit
-        </Button>
+        <CustomButton type="submit" color="primary" variant="outlined" size="large" >Add</CustomButton>
       </Form>
       <Link href="/">
-        <ReturnButton type="button">Return to posts</ReturnButton>
+      <CustomButton type="button"  variant="outlined" size="large" >Return to posts</CustomButton>
       </Link>
+      <ToastContainer position="top-center" autoClose={4000}/>
     </div>
   );
 };
@@ -124,27 +125,9 @@ font-family: 'Paytone One', sans-serif;
 const CommentText = styled(SubTitle)`
 font-size: 20px;
 color: #453336;
-padding-bottom: 20px;
+padding-bottom: 10px;
 font-family: 'Paytone One', sans-serif;
+:last-child {
+  margin-bottom: 40px;
+}
 `;
-
-const Button = styled.button`
-cursor: pointer;
-  outline: none;
-  width: 186px;
-  height: 40px;
-  border: none;
-  border-radius: 3px;
-  background-color: #3884ff;
-  color: #fff;
-  font-size: 18px;
-  font-weight: bold;
-  margin-left: 50px;
-  margin-bottom: 20px;
-`
-
-const ReturnButton = styled(Button)`
-background-color: black;
-font-size: 16px;
-margin-bottom: 40px;
-`

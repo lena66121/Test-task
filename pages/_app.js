@@ -2,8 +2,9 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import withRedux from 'next-redux-wrapper';
 import Header from '../components/Header';
-import store from '../redux/store';
+import store from '../redux/store.ts';
 import './styles.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 const MyApp = props => {
   const { Component, pageProps } = props;

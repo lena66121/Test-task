@@ -1,33 +1,42 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Router from 'next/router';
 import { NextPage } from 'next';
+import { ToastContainer, toast } from 'react-toastify';
 import { NewPost } from '../../typescript/interfaces'
 import { createNewPost } from '../../services/api';
 import styled from 'styled-components';
+import CustomButton from '../../shared-ui/CustomButton'
+
 
 const CreateNewPost: NextPage = (): JSX.Element => {
+  
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
 
     if (title === '' || body === '') {
-      alert('The field cannot  be empty');
+      toast.error('The field cannot  be empty');
       setTitle('');
-    setBody('');
+      setBody('');
       return;
     }
+
+    toast.success('Post created successfully!');
 
     const credentials: NewPost = {
       title,
       body,
     };
+
     setTitle('');
     setBody('');
 
-    createNewPost(credentials);
-    alert('Post created successfully');
+    const post: any = await createNewPost(credentials);
+    
+    Router.push(`/posts/${post.data.id}`);
   };
 
   return (
@@ -48,11 +57,12 @@ const CreateNewPost: NextPage = (): JSX.Element => {
           name="body"
           onChange={(e: React.ChangeEvent<HTMLTextAreaElement>): void => setBody(e.target.value)}
         />
-        <Button type="submit">Submit</Button>
+        <CustomButton type="submit" color="primary" variant="outlined" size="large" >Add</CustomButton>
       </Form>
       <Link href="/">
-        <ReturnButton type="button">Return to posts</ReturnButton>
+        <CustomButton type="button"  variant="outlined" size="large" >Return to posts</CustomButton>
       </Link>
+      <ToastContainer position="top-center" autoClose={4000}/>
     </div>
   );
 };
@@ -91,21 +101,6 @@ const Title = styled.h2`
   padding-bottom: 20px;
 `;
 
-const Button = styled.button`
-cursor: pointer;
-  outline: none;
-  width: 186px;
-  height: 40px;
-  border: none;
-  border-radius: 3px;
-  background-color: #3884ff;
-  color: #fff;
-  font-size: 18px;
-  font-weight: bold;
-  margin-left: 50px;
-  margin-bottom: 20px;
-`;
-
 const SubTitle = styled.p`
   text-decoration: none;
   color: #1d2124;
@@ -113,10 +108,4 @@ const SubTitle = styled.p`
   font-weight: bold;
   padding: 0 0 20px 50px;
   font-family: 'Paytone One', sans-serif;
-`;
-
-const ReturnButton = styled(Button)`
-background-color: black;
-font-size: 16px;
-margin-bottom: 40px;
 `;

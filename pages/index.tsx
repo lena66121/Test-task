@@ -14,7 +14,6 @@ const Home: NextPage = ({ posts }: any): JSX.Element => {
     dispatch(getAllPosts(posts));
   }, []);
 
-  
 
   return (
     <WrapDiv>
@@ -25,10 +24,8 @@ const Home: NextPage = ({ posts }: any): JSX.Element => {
   );
 };
 
-
-Home.getInitialProps = async function(): Promise<object> {
-  const posts: Array<Post> = await getLatestPosts();
-
+Home.getInitialProps = async (): Promise<any> => {
+  const posts: Array<object> = await getLatestPosts();
   return { posts };
 };
 
@@ -38,7 +35,7 @@ export default Home;
 const MainWrapper = styled.ul`
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: start;
   align-items: center;
   width: 100%;
 `;

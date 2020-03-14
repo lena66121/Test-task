@@ -25,12 +25,21 @@ export const getPostInfo = async (id: number): Promise<Post> => {
   
 }
 
-export const createNewPost = async (credentials: NewPost): Promise<void> => {
+export const createNewPost = async (credentials: NewPost): Promise<object> => {
   try {
-    await axios.post(`/posts`, credentials);
+    const post = await axios.post(`/posts`, credentials);
+    return post;
     } catch (err) {
       throw err;
     }
+}
+
+export const deletePost = async (id: number): Promise<void> => {
+  try {
+  await axios.delete(`/posts/${id}`);
+  } catch (err) {
+    throw err;
+  }
 }
 
 export const createComment = async (credentials: Comment): Promise<void> => {
@@ -40,3 +49,4 @@ export const createComment = async (credentials: Comment): Promise<void> => {
     throw err;
   }
 }
+
