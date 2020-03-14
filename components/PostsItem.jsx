@@ -59,7 +59,7 @@ export default PostsItem;
 
 const ListItem = styled.li`
   position: relative;
-  width: 390px;
+  width: 31%;
   height: 130px;
   padding-top: 10px;
   border-radius: 5px;
@@ -67,7 +67,7 @@ const ListItem = styled.li`
   list-style: none;
   margin-bottom: 40px;
   border: 1px solid #2360e8;
-  margin-right: 30px;
+  margin-right: 2%;
   :nth-child(3n) {
     margin-right: 0;
   }
