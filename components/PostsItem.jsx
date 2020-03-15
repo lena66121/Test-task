@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Link from 'next/link';
-import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Router from 'next/router';
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
 import styled from 'styled-components';
 import { deletePost } from '../services/api.ts';
+import Modal from './Modal.tsx';
 
 const useStyles = makeStyles(() => ({
   deleteButton: {
@@ -16,14 +16,18 @@ const useStyles = makeStyles(() => ({
     bottom: 0,
     marginRight: 10,
   },
+  updateButton: {
+    position: 'absolute',
+    color: 'black',
+    right: 0,
+    bottom: 0,
+    marginRight: 40,
+  },
 }));
 
 const PostsItem = ({ post }) => {
   const classes = useStyles();
   const { id, title, body } = post;
-  const postsRedux = useSelector(state => state.posts);
-
-  useEffect(() => {}, postsRedux);
 
   const handleClick = async () => {
     await deletePost(id);
@@ -50,6 +54,8 @@ const PostsItem = ({ post }) => {
         >
           <DeleteIcon />
         </IconButton>
+
+        <Modal id={id} />
       </ListItem>
     </>
   );

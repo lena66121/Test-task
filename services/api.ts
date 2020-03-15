@@ -42,6 +42,14 @@ export const deletePost = async (id: number): Promise<void> => {
   }
 }
 
+export const updatePost = async (id: number, credentials: NewPost): Promise<void> => {
+  try {
+  await axios.put(`/posts/${id}`, credentials);
+  } catch (err) {
+    throw err;
+  }
+}
+
 export const createComment = async (credentials: Comment): Promise<void> => {
   try {
   await axios.post(`/comments`, credentials);

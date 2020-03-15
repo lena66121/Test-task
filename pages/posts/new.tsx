@@ -18,6 +18,7 @@ const CreateNewPost: NextPage = (): JSX.Element => {
     e.preventDefault();
 
     if (title === '' || body === '') {
+      
       toast.error('The field cannot  be empty');
       setTitle('');
       setBody('');
@@ -60,7 +61,7 @@ const CreateNewPost: NextPage = (): JSX.Element => {
         <CustomButton type="submit" color="primary" variant="outlined" size="large" >Add</CustomButton>
       </Form>
       <Link href="/">
-        <CustomButton type="button"  variant="outlined" size="large" >Return to posts</CustomButton>
+        <CustomButton type="button"  variant="outlined" size="large">Return to posts</CustomButton>
       </Link>
       <ToastContainer position="top-center" autoClose={4000}/>
     </div>
